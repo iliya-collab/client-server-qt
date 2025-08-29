@@ -57,8 +57,11 @@ void MainWindow::setupUI() {
 
     btnStart = new QPushButton("Start");
     btnStart->setEnabled(false);
+    btnStop = new QPushButton("Stop");
+    btnStop->setEnabled(false);
     QHBoxLayout* raw3 = new QHBoxLayout;
     raw3->addWidget(btnStart);
+    raw3->addWidget(btnStop);
 
     mainLayout = new QVBoxLayout(mainWindow);
     mainLayout->addLayout(raw1);
@@ -68,8 +71,8 @@ void MainWindow::setupUI() {
 
 void MainWindow::connectionSignals() {
     connect(modeGroup, &QActionGroup::triggered, this, &MainWindow::handleModeChange);
-    connect(editIPAddress, &QLineEdit::returnPressed, this, &MainWindow::handleEditIPAddress);
-    connect(editPort, &QLineEdit::returnPressed, this, &MainWindow::handleEditPort);
+    connect(editIPAddress, &QLineEdit::editingFinished, this, &MainWindow::handleEditIPAddress);
+    connect(editPort, &QLineEdit::editingFinished, this, &MainWindow::handleEditPort);
     connect(btnStart, &QPushButton::clicked, this, &MainWindow::handleClickedPushButtonStart);
 }
 

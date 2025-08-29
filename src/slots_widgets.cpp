@@ -7,20 +7,18 @@ void MainWindow::handleModeChange(QAction *action) {
         setWindowTitle("Client");
         editIPAddress->setEnabled(true);
         btnStart->setText("Connect to server");
-
-        QLayoutItem* item = mainLayout->itemAt(2);
-        if (item && item->layout()) {
-            QLayout* raw3 =  item->layout();
-            QPushButton *button = new QPushButton("New Button");
-            raw3->addWidget(button);
-        }
+        btnStop->setText("Disconnect to server");
+        connect(btnStop, &QPushButton::clicked, &_server, &Server::disconnectCurrentClient);
     }
     else {
         setWindowTitle("Server");
         editIPAddress->setEnabled(false);
         btnStart->setText("Start the server");
+        btnStop->setText("Stop the server");
+        connect(btnStop, &QPushButton::clicked, &_server, &Server::disconnectAllClients);
     }
     editPort->setEnabled(true);
+    btnStop->setEnabled(true);
     btnStart->setEnabled(true);
 }
 
@@ -35,7 +33,6 @@ void MainWindow::handleEditPort() {
 }
 
 void MainWindow::handleClickedPushButtonStart() {
-    qDebug() << "Start program";
     quint16 port;
     if (dataEditPort == "")
         port = 1234; 

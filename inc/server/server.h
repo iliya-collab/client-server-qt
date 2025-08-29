@@ -5,7 +5,17 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QNetworkInterface>
-#include <QList>
+#include <QDateTime>
+#include <QUuid>
+#include <QMap>
+
+typedef struct {
+    QString id;
+    QString name;
+    QHostAddress address;
+    quint16 port;
+    QDateTime connectedTime;
+} ClientInfo;
 
 class Server : public QObject {
     Q_OBJECT
@@ -22,13 +32,16 @@ public:
 private:
 
     QTcpServer* server = nullptr;
-    QList<QTcpSocket*> clients;
+    QMap<QTcpSocket*, ClientInfo> clients;
 
     quint16 portServer = 1234;
     QHostAddress addrServer;
 
     QHostAddress getLocalIP();
 
+public slots:
+    void disconnectCurrentClient();
+    void disconnectAllClients();
 
 private slots:
 

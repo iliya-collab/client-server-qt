@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QMainWindow>
 
+#include <QObject>
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QLineEdit>
@@ -31,6 +32,7 @@ private:
     QLineEdit* editIPAddress;
     QLineEdit* editPort;
     QPushButton* btnStart;
+    QPushButton* btnStop;
 
     QString mode;
     QString dataEditPort;
